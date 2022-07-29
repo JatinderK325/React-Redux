@@ -16,6 +16,10 @@ const Counter = () => {
     dispatch({ type: 'increment' });
   };
 
+  const increaseHandler = () => {
+    dispatch({ type: 'increase', amount: 5 });
+  };
+
   const decrementHandler = () => {
     dispatch({ type: 'decrement' });
   };
@@ -28,6 +32,7 @@ const Counter = () => {
       <div className={classes.value}>{counter}</div>
       <div className={classes.button}>
         <button onClick={incrementHandler}>Increment</button>
+        <button onClick={increaseHandler}>Increase by 5</button>
         <button onClick={decrementHandler}>Decrement</button>
       </div>
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
@@ -35,4 +40,61 @@ const Counter = () => {
   );
 };
 
-export default Counter;
+ export default Counter; 
+
+/*
+CLASS-BASED COMPONENT: ------------
+// Refer notebook 2 section-18 topic: class-based components for explanation of every keyword used.
+import { Component } from 'react';
+// connect is an alternative to 'useSelector' and 'useDispatch'. becoz we can't use hooks in class-based components.
+import { connect } from 'react-redux';
+import classes from './Counter.module.css';
+
+class Counter extends Component {
+  incrementHandler() {
+    this.props.increment();
+  }
+
+  decrementHandler() {
+    this.props.decrement();
+  }
+
+  toggleCounterHandler() {
+
+  }
+
+  render() {
+    return (
+      <main className={classes.counter}>
+        <h1>Redux Counter</h1>
+        <div className={classes.value}>{this.props.counter}</div>
+        <div className={classes.button}>
+          <button onClick={this.incrementHandler.bind(this)}>Increment</button>
+          <button onClick={this.decrementHandler.bind(this)}>Decrement</button>
+        </div>
+        <button onClick={this.toggleCounterHandler.bind(this)}>Toggle Counter</button>
+      </main>
+    );
+  }
+}
+
+// mapStateToProps is a function that maps redux state to props which will be received in this component.
+// this function receives the redux state and then returns an object where the keys of the object will be available as the props in the receiving component and the values of these keys is a logic for drilling into that redux state. 
+const mapStateToProps = state => {
+  return {
+    counter: state.counter, // picked 'counter' value from a redux state and binded it to the prop 'counter'.
+  };
+};
+
+// mapDispatchToProps is a function equivalent to 'useDispatch'. Here, the idea is to store dispatch function in props.
+// It receives dispatch as an argument.
+const mapDispatchToProps = dispatch => {
+  return {
+    // returns an object where keys are props name which we can use in this component and value is a function where we call dispatch and setup our action.
+    increment: () => dispatch({ type: 'increment' }),
+    decrement: () => dispatch({ type: 'decrement' }),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+*/
