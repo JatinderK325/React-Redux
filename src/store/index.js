@@ -29,6 +29,20 @@ const counterSlice = createSlice({
     }
 });
 
+// making a brand new state slice for authentication status. 
+const authSlice = createSlice({
+    name: 'authentication',
+    initialState: { isAuthenticated: false },
+    reducers: {
+        login(state) {
+            state.isAuthenticated = true;
+        },
+        logout(state) {
+            state.isAuthenticated = false;
+        }
+    }
+});
+
 /* instead of reducer function, we have made one state slice here i.e createSlice().
 // creating reducer function
 const counterReducer = (state = { counter: 0, showCounter: true }, action) => {
@@ -64,10 +78,17 @@ const counterReducer = (state = { counter: 0, showCounter: true }, action) => {
 // const store = createStore(counterReducer); // we can write like this also becoz imported specifically.
 
 const store = configureStore({
-    reducer: counterSlice.reducer,
+    // merging different reducers to get one main reducer in the store.
+    reducer: {
+        counter: counterSlice.reducer,
+        auth: authSlice.reducer,
+    }
 });
 
 export const counterActions = counterSlice.actions;
+// authSlice also exposes an actions which we can use and we will expose them as well,
+export const authActions = authSlice.actions;
+
 export default store;
 
 
