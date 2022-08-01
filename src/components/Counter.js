@@ -1,5 +1,6 @@
 // useSelector allows us to get(select) the part of our state managed by the store. useDispatch hook is to dispatch an action.
 import { useSelector, useDispatch } from 'react-redux';
+import { counterActions } from '../store';
 import classes from './Counter.module.css';
 
 const Counter = () => {
@@ -10,26 +11,33 @@ const Counter = () => {
   // state = redux state(managed data) 
   // state.counter is retriving the part of the state that we want in this component.
   const counter = useSelector(state => state.counter);
+  const show = useSelector(state => state.showCounter);
 
   const incrementHandler = () => {
     // dispatch here is a function which can be called, which will dispatch an action against our redux store.
-    dispatch({ type: 'increment' });
+    // dispatch({ type: 'increment' }); // with redux
+    dispatch(counterActions.increment()); // with redux toolkit 
   };
 
   const increaseHandler = () => {
-    dispatch({ type: 'increase', amount: 5 });
+    //dispatch({ type: 'increase', amount: 5 });
+    dispatch(counterActions.increase(5)); // with redux toolkit 
   };
 
   const decrementHandler = () => {
-    dispatch({ type: 'decrement' });
+    // dispatch({ type: 'decrement' });
+    dispatch(counterActions.decrement()); // with redux toolkit 
   };
 
-  const toggleCounterHandler = () => { };
+  const toggleCounterHandler = () => {
+    // dispatch({type: 'toggle'});
+    dispatch(counterActions.toggleCounter()); // with redux toolkit 
+  };
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter}</div>
+      {show && <div className={classes.value}>{counter}</div>}
       <div className={classes.button}>
         <button onClick={incrementHandler}>Increment</button>
         <button onClick={increaseHandler}>Increase by 5</button>
@@ -40,7 +48,7 @@ const Counter = () => {
   );
 };
 
- export default Counter; 
+export default Counter;
 
 /*
 CLASS-BASED COMPONENT: ------------
