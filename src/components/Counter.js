@@ -1,6 +1,6 @@
 // useSelector allows us to get(select) the part of our state managed by the store. useDispatch hook is to dispatch an action.
 import { useSelector, useDispatch } from 'react-redux';
-import { counterActions } from '../store';
+import { counterActions } from '../store/counter-slice';
 import classes from './Counter.module.css';
 
 const Counter = () => {
