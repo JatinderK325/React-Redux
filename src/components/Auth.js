@@ -3,7 +3,7 @@ import classes from './Auth.module.css';
 import { authActions } from '../store/auth-slice'; 
 
 const Auth = () => {
-  // executing useDispatch() to get access to the dispatch function.
+  // executing useDispatch() to get access to the dispatch function leads to our redux state being changed.
   const dispatch = useDispatch();
 
   const loginHandler = (event) => {

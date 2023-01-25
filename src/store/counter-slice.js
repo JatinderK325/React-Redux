@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+//
 /* instead of reducer function, we have made one state slice here i.e createSlice().
 // creating reducer function
 const counterReducer = (state = { counter: 0, showCounter: true }, action) => {
